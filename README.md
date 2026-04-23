@@ -28,10 +28,11 @@ KPI_AUTH_URL=http://localhost:3001
 
 | Method | Path                                      | Description                                |
 | ------ | ----------------------------------------- | ------------------------------------------ |
-| GET    | `/group/all`                            | Full groups array (groups.json)            |
-| GET    | `/api/ticket`                           | KPI-ID ticket exchange                     |
-| GET    | `/api/integration/voteoss/students/:id` | Campus student data                        |
-| GET    | `/students`                             | Cheat sheet — all tickets + live previews |
+| GET    | `/health`                                 | Always returns 200 with {"status": "ok"}   |
+| GET    | `/group/all`                              | Full groups array (groups.json)            |
+| GET    | `/api/ticket`                             | KPI-ID ticket exchange                     |
+| GET    | `/api/integration/voteoss/students/:id`   | Campus student data                        |
+| GET    | `/students`                               | Cheat sheet — all tickets + live previews  |
 
 ---
 
@@ -43,11 +44,11 @@ The same ticket ID **always returns the same student** (hash-seeded, no state).
 
 | Ticket          | Resolves to                           |
 | --------------- | ------------------------------------- |
-| `s1`          | Any group, any faculty                |
-| `s42`         | Same as above, different student      |
-| `s1@ФІОТ` | Student whose group is in ФІОТ    |
-| `s7@КА-31`  | Student in group КА-31 specifically |
-| `s3@ФЕЛ`   | Student whose group is in ФЕЛ      |
+| `s1`            | Any group, any faculty                |
+| `s42`           | Same as above, different student      |
+| `s1@ФІОТ`       | Student whose group is in ФІОТ        |
+| `s7@КА-31`      | Student in group КА-31 specifically   |
+| `s3@ФЕЛ`        | Student whose group is in ФЕЛ         |
 
 `N` can be 1–100. Scopes can be any **faculty short name** or **group name** from groups.json.
 
@@ -55,12 +56,12 @@ The same ticket ID **always returns the same student** (hash-seeded, no state).
 
 | Ticket        | Error triggered          | What's special                              |
 | ------------- | ------------------------ | ------------------------------------------- |
-| `employee`  | `NotStudentError`      | `EMPLOYEE_ID` set, `STUDENT_ID` empty   |
-| `both`      | *(valid student)*      | Both `EMPLOYEE_ID` and `STUDENT_ID` set |
-| `no-diia`   | `NotDiiaAuthError`     | `AUTH_METHOD = BANK_ID`                   |
-| `invalid`   | `InvalidUserDataError` | `STUDENT_ID` and `NAME` are empty       |
-| `academic`  | `NotStudyingError`     | Campus returns `OnAcademicLeave`          |
-| `dismissed` | `NotStudyingError`     | Campus returns `Dismissed`                |
+| `employee`    | `NotStudentError`        | `EMPLOYEE_ID` set, `STUDENT_ID` empty       |
+| `both`        | *(valid student)*        | Both `EMPLOYEE_ID` and `STUDENT_ID` set     |
+| `no-diia`     | `NotDiiaAuthError`       | `AUTH_METHOD = BANK_ID`                     |
+| `invalid`     | `InvalidUserDataError`   | `STUDENT_ID` and `NAME` are empty           |
+| `academic`    | `NotStudyingError`       | Campus returns `OnAcademicLeave`            |
+| `dismissed`   | `NotStudyingError`       | Campus returns `Dismissed`                  |
 
 ---
 

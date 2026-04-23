@@ -7,10 +7,11 @@
  * ┌──────────────────────────────────────────────────────────────────────────┐
  * │  Endpoints                                                               │
  * ├──────────────────────────────────────────────────────────────────────────┤
- * │  GET /group/all                         → raw groups.json array         │
- * │  GET /api/ticket?ticketId=&appId=&...   → { data: KpiIdUserInfo }       │
- * │  GET /api/integration/voteoss/students/:STUDENT_ID → CampusUserInfo     │
- * │  GET /students                          → cheat-sheet (all tickets)     │
+ * │  GET /health                            → { status: "ok"}                │
+ * │  GET /group/all                         → raw groups.json array          │
+ * │  GET /api/ticket?ticketId=&appId=&...   → { data: KpiIdUserInfo }        │
+ * │  GET /api/integration/voteoss/students/:STUDENT_ID → CampusUserInfo      │
+ * │  GET /students                          → cheat-sheet (all tickets)      │
  * └──────────────────────────────────────────────────────────────────────────┘
  *
  * ┌──────────────────────────────────────────────────────────────────────────┐
@@ -567,6 +568,10 @@ const server = http.createServer((req, res) => {
 
   // ── Routes ────────────────────────────────────────────────────────────────
 
+  if (pathname === '/health') {
+    return json(res, 200, { status: 'ok' });
+  }
+
   if (pathname === '/group/all') {
     return handleGroupAll(req, res);
   }
@@ -595,6 +600,7 @@ server.listen(PORT, () => {
   const base = `http://localhost:${PORT}`;
   console.log(`\n🎓  Mock KPI API  →  ${base}\n`);
   console.log('  Routes:');
+  console.log(`    GET  ${base}/health`);
   console.log(`    GET  ${base}/group/all`);
   console.log(`    GET  ${base}/api/ticket?ticketId=s1&appId=x&appSecret=y`);
   console.log(`    GET  ${base}/api/integration/voteoss/students/:STUDENT_ID`);
