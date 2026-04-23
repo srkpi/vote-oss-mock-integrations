@@ -611,5 +611,5 @@ server.listen(PORT, () => {
   console.log(`    curl "${base}/api/ticket?ticketId=s1@ФІОТ"`);
   console.log(`    curl "${base}/api/ticket?ticketId=s7@КА-31"`);
   console.log(`    curl "${base}/api/ticket?ticketId=academic"`);
-  console.log(`    curl "${base}/students"   # full cheat-sheet\n`);
+  console.log(`    curl "${base}/students"\n`);
 });
